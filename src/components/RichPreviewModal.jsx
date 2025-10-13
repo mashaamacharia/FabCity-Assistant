@@ -4,9 +4,27 @@ import { useEffect, useState } from 'react';
 
 const RichPreviewModal = ({ url, onClose }) => {
   const [fileType, setFileType] = useState('web');
+  const [embedUrl, setEmbedUrl] = useState(url);
 
   useEffect(() => {
     if (!url) return;
+
+    // Convert Google Drive view URLs to preview URLs for embedding
+    let processedUrl = url;
+    if (url.includes('drive.google.com/file/d/')) {
+      // Extract file ID from Google Drive URL
+      const fileIdMatch = url.match(/\/file\/d\/([^\/]+)/);
+      if (fileIdMatch) {
+        const fileId = fileIdMatch[1];
+        // Convert to preview URL which can be embedded
+        processedUrl = `https://drive.google.com/file/d/${fileId}/preview`;
+        setFileType('googledrive');
+        setEmbedUrl(processedUrl);
+        return;
+      }
+    }
+
+    setEmbedUrl(processedUrl);
 
     const urlLower = url.toLowerCase();
     if (urlLower.endsWith('.pdf')) {
@@ -24,12 +42,42 @@ const RichPreviewModal = ({ url, onClose }) => {
 
   const renderPreview = () => {
     switch (fileType) {
+      case 'googledrive':
+        return (
+          <div className="w-full h-full flex flex-col">
+            <div className="bg-gradient-to-r from-blue-500 to-green-500 px-4 py-3 border-b flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12.01 1.5c-2.19 0-4.18.79-5.73 2.1L1.55 9.45c-.23.27-.23.66 0 .93l4.73 5.85c1.55 1.31 3.54 2.1 5.73 2.1 4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 15c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/>
+                </svg>
+                <span className="text-sm text-white font-medium">Google Drive Document</span>
+              </div>
+              <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white hover:text-gray-200 text-sm font-medium whitespace-nowrap flex items-center gap-1"
+              >
+                Open in Drive →
+              </a>
+            </div>
+            <div className="flex-1 overflow-hidden">
+              <iframe
+                src={embedUrl}
+                className="w-full h-full border-0"
+                title="Google Drive Preview"
+                allow="autoplay"
+              />
+            </div>
+          </div>
+        );
+
       case 'pdf':
         return (
           <div className="w-full h-full flex flex-col">
             <div className="flex-1 overflow-hidden">
               <iframe
-                src={url}
+                src={embedUrl}
                 className="w-full h-full border-0"
                 title="PDF Preview"
               />
@@ -50,7 +98,7 @@ const RichPreviewModal = ({ url, onClose }) => {
         return (
           <div className="w-full h-full flex items-center justify-center bg-black/50">
             <img
-              src={url}
+              src={embedUrl}
               alt="Preview"
               className="max-w-full max-h-full object-contain"
             />
@@ -61,7 +109,7 @@ const RichPreviewModal = ({ url, onClose }) => {
         return (
           <div className="w-full h-full flex items-center justify-center bg-black">
             <video controls className="max-w-full max-h-full">
-              <source src={url} />
+              <source src={embedUrl} />
               Your browser does not support the video tag.
             </video>
           </div>
@@ -83,7 +131,7 @@ const RichPreviewModal = ({ url, onClose }) => {
               </a>
             </div>
             <iframe
-              src={url}
+              src={embedUrl}
               className="w-full flex-1 border-0"
               title="Web Preview"
               sandbox="allow-scripts allow-same-origin allow-popups"

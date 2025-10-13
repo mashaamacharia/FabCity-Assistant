@@ -358,7 +358,7 @@ const ChatWidget = ({ config = {} }) => {
                     </button>
                   </div>
                   <p className="text-xs text-gray-400 mt-3 text-center">
-                    Powered by Fab City AI • Press Enter to send
+                    Powered by Fab City AI & <span>manymangoes</span> • Press Enter to send
                   </p>
                 </div>
               </div>
