@@ -1,10 +1,20 @@
 import { motion } from 'framer-motion';
 
 const LoadingIndicator = () => {
-  const colors = ['#3EB489', '#FFA62B', '#1C5D99'];
+  // Use Fab City brand colors
+  const colors = ['#22c55e', '#3b82f6', '#22c55e'];
 
   return (
-    <div className="flex flex-col items-center justify-center p-6">
+    <div className="flex flex-col items-center justify-center p-4">
+      {/* Fab City Logo - Small version while loading */}
+      <div className="w-12 h-12 rounded-full overflow-hidden mb-4 shadow-md">
+        <img 
+          src="/Fab City logo.png" 
+          alt="Fab City Logo" 
+          className="w-full h-full object-cover"
+        />
+      </div>
+
       {/* Animated dots with wave effect */}
       <div className="flex items-center space-x-2 mb-3">
         {colors.map((color, index) => (
@@ -41,7 +51,7 @@ const LoadingIndicator = () => {
             
             {/* Main dot */}
             <div
-              className="w-3 h-3 rounded-full relative z-10"
+              className="w-2.5 h-2.5 rounded-full relative z-10"
               style={{ backgroundColor: color }}
             />
           </motion.div>
@@ -59,25 +69,28 @@ const LoadingIndicator = () => {
         <motion.span
           animate={{ opacity: [0, 1, 0] }}
           transition={{ duration: 1.5, repeat: Infinity, times: [0, 0.5, 1] }}
+          className="text-fabcity-green"
         >
           .
         </motion.span>
         <motion.span
           animate={{ opacity: [0, 1, 0] }}
           transition={{ duration: 1.5, repeat: Infinity, times: [0, 0.5, 1], delay: 0.2 }}
+          className="text-fabcity-blue"
         >
           .
         </motion.span>
         <motion.span
           animate={{ opacity: [0, 1, 0] }}
           transition={{ duration: 1.5, repeat: Infinity, times: [0, 0.5, 1], delay: 0.4 }}
+          className="text-fabcity-green"
         >
           .
         </motion.span>
       </motion.div>
 
       {/* Progress bar */}
-      <div className="w-32 h-1 bg-gray-200 rounded-full overflow-hidden mt-3">
+      <div className="w-28 h-0.5 bg-gray-100 rounded-full overflow-hidden mt-3">
         <motion.div
           className="h-full rounded-full"
           style={{

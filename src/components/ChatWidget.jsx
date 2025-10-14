@@ -193,8 +193,12 @@ const ChatWidget = ({ config = {} }) => {
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gradient-to-r from-fabcity-green to-fabcity-blue rounded-xl flex items-center justify-center">
-                        <Sparkles className="text-white" size={20} />
+                      <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center">
+                        <img 
+                          src="/Fab City logo.png" 
+                          alt="Fab City Logo" 
+                          className="w-full h-full object-cover"
+                        />
                       </div>
                       <div>
                         <h1 className="text-xl font-semibold text-gray-900">Fab City AI Assistant</h1>
@@ -259,8 +263,12 @@ const ChatWidget = ({ config = {} }) => {
                       animate={{ opacity: 1, y: 0 }}
                       className="flex flex-col items-center justify-center min-h-[50vh]"
                     >
-                      <div className="w-20 h-20 bg-gradient-to-r from-fabcity-green to-fabcity-blue rounded-2xl flex items-center justify-center mb-6">
-                        <Sparkles className="text-white" size={36} />
+                      <div className="w-24 h-24 rounded-full overflow-hidden flex items-center justify-center mb-6 shadow-xl">
+                        <img 
+                          src="/Fab City logo.png" 
+                          alt="Fab City Logo" 
+                          className="w-full h-full object-cover"
+                        />
                       </div>
                       <h2 className="text-3xl font-bold text-gray-900 mb-3 text-center">
                         Welcome to Fab City AI
@@ -289,8 +297,8 @@ const ChatWidget = ({ config = {} }) => {
                         <Message key={message.id} message={message} onLinkClick={handleLinkClick} />
                       ))}
                       {isLoading && (
-                        <div className="flex justify-start">
-                          <div className="bg-white rounded-xl shadow-md">
+                        <div className="flex justify-center my-4">
+                          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-100">
                             <LoadingIndicator />
                           </div>
                         </div>
