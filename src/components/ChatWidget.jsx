@@ -80,6 +80,12 @@ const ChatWidget = ({ config = {} }) => {
     };
   }, [error]);
 
+  const handleTypingComplete = (messageId) => {
+    setMessages(prev => prev.map(msg => 
+      msg.id === messageId ? { ...msg, isTyped: true } : msg
+    ));
+  };
+
   const handleSendMessage = async () => {
     if (!inputValue.trim() || isLoading) return;
 
@@ -138,6 +144,7 @@ const ChatWidget = ({ config = {} }) => {
         text: responseText || 'Sorry, I couldn\'t process that.',
         sender: 'ai',
         timestamp: new Date(),
+        isTyped: false, // Track if message has been typed out
       };
 
       setMessages((prev) => [...prev, aiMessage]);
@@ -287,7 +294,11 @@ const ChatWidget = ({ config = {} }) => {
                     // Messages List
                     <>
                       {messages.map((message) => (
-                        <Message key={message.id} message={message} onLinkClick={handleLinkClick} />
+                        <Message 
+                          key={message.id} 
+                          message={{ ...message, onTypingComplete: handleTypingComplete }} 
+                          onLinkClick={handleLinkClick} 
+                        />
                       ))}
                       {isLoading && (
                         <div className="flex justify-center my-4">
