@@ -201,14 +201,7 @@ const ChatWidget = ({ config = {} }) => {
                         />
                       </div>
                       <div>
-                        <h1 className="text-xl font-semibold text-gray-900">Fab City AI Assistant</h1>
-                        <div className="flex items-center gap-2">
-                          <span className="relative flex h-3 w-3">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-60" />
-                            <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500" />
-                          </span>
-                          <span className="text-green-600 font-medium">Online</span>
-                        </div>
+                        <h1 className="text-xl font-semibold text-gray-900">Fab City Assistant</h1>
                         <p className="text-sm text-gray-500">Your guide to urban innovation</p>
                       </div>
                     </div>
@@ -271,7 +264,7 @@ const ChatWidget = ({ config = {} }) => {
                         />
                       </div>
                       <h2 className="text-3xl font-bold text-gray-900 mb-3 text-center">
-                        Welcome to Fab City AI
+                        Welcome to Fab City 
                       </h2>
                       <p className="text-lg text-gray-600 mb-8 text-center max-w-2xl">
                         Your intelligent assistant for exploring sustainable urban innovation, 
