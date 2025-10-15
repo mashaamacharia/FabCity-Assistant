@@ -9,7 +9,7 @@ import SuggestionChip from './SuggestionChip';
 const SUGGESTIONS = [
   "What is Fab City and how does it work?",
   "How can I get involved in local Fab City initiatives?",
-  "Tell me about sustainable urban manufacturing",
+  "What are the Fab City initiatives",
   "What are the key principles of Fab City?"
 ];
 
