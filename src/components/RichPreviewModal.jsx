@@ -1,10 +1,11 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Download } from 'lucide-react';
+import { X, Download, Maximize2, Minimize2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 const RichPreviewModal = ({ url, onClose }) => {
   const [fileType, setFileType] = useState('web');
   const [embedUrl, setEmbedUrl] = useState(url);
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   useEffect(() => {
     if (!url) return;
@@ -52,14 +53,22 @@ const RichPreviewModal = ({ url, onClose }) => {
                 </svg>
                 <span className="text-sm text-white font-medium">Google Drive Document</span>
               </div>
-              <a
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white hover:text-gray-200 text-sm font-medium whitespace-nowrap flex items-center gap-1"
+              <button
+                onClick={() => setIsFullScreen(!isFullScreen)}
+                className="text-white hover:text-gray-200 text-sm font-medium whitespace-nowrap flex items-center gap-2"
               >
-                Open in Drive →
-              </a>
+                {isFullScreen ? (
+                  <>
+                    <Minimize2 size={16} />
+                    Exit Full Screen
+                  </>
+                ) : (
+                  <>
+                    <Maximize2 size={16} />
+                    Full Screen
+                  </>
+                )}
+              </button>
             </div>
             <div className="flex-1 overflow-hidden">
               <iframe
@@ -121,14 +130,22 @@ const RichPreviewModal = ({ url, onClose }) => {
           <div className="w-full h-full flex flex-col">
             <div className="bg-gray-100 px-4 py-3 border-b flex items-center justify-between">
               <span className="text-sm text-gray-600 truncate flex-1 mr-4">{url}</span>
-              <a
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-fabcity-blue hover:text-fabcity-green text-sm font-medium whitespace-nowrap"
+              <button
+                onClick={() => setIsFullScreen(!isFullScreen)}
+                className="text-fabcity-blue hover:text-fabcity-green text-sm font-medium whitespace-nowrap flex items-center gap-2"
               >
-                Open in new tab →
-              </a>
+                {isFullScreen ? (
+                  <>
+                    <Minimize2 size={16} />
+                    Exit Full Screen
+                  </>
+                ) : (
+                  <>
+                    <Maximize2 size={16} />
+                    Full Screen
+                  </>
+                )}
+              </button>
             </div>
             <iframe
               src={embedUrl}
@@ -155,7 +172,11 @@ const RichPreviewModal = ({ url, onClose }) => {
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
           transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-          className="bg-white rounded-2xl shadow-2xl w-full max-w-5xl h-[80vh] overflow-hidden relative"
+          className={`bg-white rounded-2xl shadow-2xl overflow-hidden relative transition-all duration-300 ${
+            isFullScreen 
+              ? 'fixed inset-0 w-full h-full rounded-none' 
+              : 'w-full max-w-6xl h-[85vh]'
+          }`}
           onClick={(e) => e.stopPropagation()}
         >
           <button
