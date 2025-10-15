@@ -2,7 +2,8 @@ import express from 'express';
 import cors from 'cors';
 
 const app = express();
-const PORT = 3001;
+
+const PORT = process.env.PORT || 3001;
 
 // Replace with your actual n8n webhook URL
 const N8N_WEBHOOK_URL = process.env.N8N_WEBHOOK_URL || 'https://automations.manymangoes.com.au/webhook/6b51b51f-4928-48fd-b5fd-b39c34f523d1/chat';
@@ -62,7 +63,7 @@ app.post('/api/chat', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 API server running on http://localhost:${PORT}`);
+  console.log(`🚀 API server running on port: ${PORT}`);
   console.log(`📡 Proxying chat requests to: ${N8N_WEBHOOK_URL}`);
 });
 
