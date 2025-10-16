@@ -51,6 +51,64 @@ A modern, production-ready AI chat widget built with React, TailwindCSS, and Fra
    ./start.sh
    ```
 
+## 🌐 Deployment
+
+### Two-Part Deployment
+
+This project consists of two deployable parts:
+
+1. **Main API Application** (for handling chat requests)
+2. **Embeddable Widget** (for clients to add to their websites)
+
+### Quick Deployment Guide
+
+#### Part 1: Deploy Main API to Render ✅
+
+**[Complete Guide](RENDER_DEPLOYMENT.md)**
+
+```bash
+# Push to GitHub
+git push origin main
+
+# In Render Dashboard:
+# - Create Web Service from GitHub repo
+# - Build Command: npm install && npm run build
+# - Start Command: node server/index.js
+```
+
+Your API will be live at: `https://your-app.onrender.com`
+
+#### Part 2: Deploy Widget for Clients 📦
+
+**[Quick Start Guide](WIDGET_QUICKSTART.md)** | **[Detailed Guide](WIDGET_DEPLOYMENT_GUIDE.md)**
+
+```bash
+# 1. Update widget.config.js with your Render URL
+# 2. Build the widget
+npm run build:embed
+
+# 3. Deploy to hosting (Netlify example)
+netlify deploy --dir=dist-embed --prod
+```
+
+Your widget will be at: `https://your-widget.netlify.app`
+
+#### Give to Clients
+
+Share `client-integration.html` or this simple code snippet:
+
+```html
+<link rel="stylesheet" href="[YOUR-WIDGET-URL]/fabcity-widget.css">
+<script src="[YOUR-WIDGET-URL]/fabcity-widget.js"></script>
+```
+
+**📚 All Deployment Docs:**
+- 📋 **[DEPLOYMENT_SUMMARY.md](DEPLOYMENT_SUMMARY.md)** - Start here for complete overview
+- 🚀 **[WIDGET_QUICKSTART.md](WIDGET_QUICKSTART.md)** - Fast widget deployment (15 min)
+- 📖 **[WIDGET_DEPLOYMENT_GUIDE.md](WIDGET_DEPLOYMENT_GUIDE.md)** - Detailed widget guide
+- 🔧 **[RENDER_DEPLOYMENT.md](RENDER_DEPLOYMENT.md)** - Fix Render deployment issues
+- 👥 **[client-integration.html](client-integration.html)** - Beautiful client-facing guide
+
    **Or manually (2 terminals):**
    ```bash
    # Terminal 1 - Backend

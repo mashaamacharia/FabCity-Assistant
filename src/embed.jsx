@@ -1,6 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import ChatWidget from './components/ChatWidget';
+import WIDGET_CONFIG from '../widget.config.js';
 import './index.css';
 
 // Embeddable Chat Widget Script
@@ -10,8 +11,10 @@ import './index.css';
   'use strict';
 
   // Configuration - can be overridden by the embedding page
+  // Priority: window.FabCityConfig > widget.config.js > fallback
   const defaultConfig = {
-    apiUrl: window.FabCityConfig?.apiUrl || 'http://localhost:3001',
+    apiUrl: window.FabCityConfig?.apiUrl || WIDGET_CONFIG.apiUrl || 'http://localhost:3001',
+    name: window.FabCityConfig?.name || WIDGET_CONFIG.name || 'Fab City Assistant',
     // Add more configuration options as needed
   };
 
