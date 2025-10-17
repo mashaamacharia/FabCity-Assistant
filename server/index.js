@@ -17,7 +17,7 @@ app.use(cors());
 app.use(express.json());
 
 // Serve static files from the dist directory
-app.use(express.static(path.join(__dirname, '../dist')));
+app.use(express.static(path.join(__dirname, '../dist-embed')));
 
 app.post('/api/chat', async (req, res) => {
   try {
@@ -72,12 +72,12 @@ app.post('/api/chat', async (req, res) => {
 
 // Catch-all route: serve index.html for any non-API routes (SPA support)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../dist/index.html'));
+  res.sendFile(path.join(__dirname, '../dist-embed'));
 });
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port: ${PORT}`);
   console.log(`📡 Proxying chat requests to: ${N8N_WEBHOOK_URL}`);
-  console.log(`📁 Serving static files from: ${path.join(__dirname, '../dist')}`);
+  console.log(`📁 Serving static files from: ${path.join(__dirname, '../dist-embed')}`);
 });
 

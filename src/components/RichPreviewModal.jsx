@@ -496,4 +496,3 @@ const RichPreviewModal = ({ url, onClose }) => {
 };
 
 export default RichPreviewModal;
-
