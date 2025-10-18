@@ -4,7 +4,7 @@
 export const WIDGET_CONFIG = {
   // Your Render API URL (the main app you just deployed)
   // Example: 'https://fabcity-chat.onrender.com'
-  apiUrl: 'https://fab-city-widget.onrender.com',
+  apiUrl: 'https://fabcity-assistant.onrender.com',
   
   // Widget display name
   name: 'Fab City Assistant',
