@@ -28,6 +28,11 @@ export default defineConfig({
         drop_console: false, // Keep console logs for debugging
       }
     }
+  },
+  // ✅ ADD THIS: Define process.env for browser compatibility
+  define: {
+    'process.env.NODE_ENV': JSON.stringify('production'),
+    'process.env': JSON.stringify({}),
+    'global': 'globalThis'
   }
 })
-
