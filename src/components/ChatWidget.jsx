@@ -16,6 +16,10 @@ const SUGGESTIONS = [
 const ChatWidget = ({ config = {} }) => {
   // Get API URL from config or default to relative path
   const apiUrl = config.apiUrl || '';
+  
+  // ✅ FIX: Use absolute URL for logo
+  const logoUrl = apiUrl ? `${apiUrl.replace(/\/$/, '')}/fab-city-logo.png` : '/fab-city-logo.png';
+  
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
@@ -202,7 +206,7 @@ const ChatWidget = ({ config = {} }) => {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center">
                         <img 
-                          src="/Fab City logo.png" 
+                          src={logoUrl}
                           alt="Fab City Logo" 
                           className="w-full h-full object-cover"
                         />
@@ -265,7 +269,7 @@ const ChatWidget = ({ config = {} }) => {
                     >
                       <div className="w-24 h-24 rounded-full overflow-hidden flex items-center justify-center mb-6 shadow-xl">
                         <img 
-                          src="/Fab City logo.png" 
+                          src={logoUrl}
                           alt="Fab City Logo" 
                           className="w-full h-full object-cover"
                         />
@@ -414,4 +418,3 @@ const ChatWidget = ({ config = {} }) => {
 };
 
 export default ChatWidget;
-
