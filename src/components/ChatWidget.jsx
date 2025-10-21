@@ -14,15 +14,9 @@ const SUGGESTIONS = [
 ];
 
 const ChatWidget = ({ config = {} }) => {
-  // Get API URL from config or default to relative path
+  // Get API URL from config
   const apiUrl = config.apiUrl || '';
   
-  // ✅ FIX: Use absolute URL for logo
-  // Remove trailing slash and construct full logo URL
-  const baseUrl = apiUrl.replace(/\/$/, '');
-  const logoUrl = baseUrl ? `${baseUrl}/fab-city-logo.png` : '/fab-city-logo.png';
-  
-  console.log('🖼️ Logo URL:', logoUrl);
   console.log('🔧 API URL from config:', apiUrl);
   
   const [isOpen, setIsOpen] = useState(false);
@@ -312,7 +306,7 @@ const ChatWidget = ({ config = {} }) => {
                       {isLoading && (
                         <div className="flex justify-center my-4">
                           <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-100">
-                            <LoadingIndicator logoUrl={logoUrl} />
+                            <LoadingIndicator />
                           </div>
                         </div>
                       )}
