@@ -1,10 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -15,8 +10,8 @@ const N8N_WEBHOOK_URL = process.env.N8N_WEBHOOK_URL || 'https://automations.many
 app.use(cors());
 app.use(express.json());
 
-// Serve static files from the dist directory
-app.use(express.static(path.join(__dirname, '../dist-embed')));
+// ❌ REMOVED - Static files now served by Render Static Site
+// app.use(express.static(path.join(__dirname, '../dist-embed')));
 
 app.post('/api/chat', async (req, res) => {
   try {
@@ -64,88 +59,49 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
-// Root route - provide instructions for using the widget
+// API info endpoint
 app.get('/', (req, res) => {
-  res.send(`
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>FabCity Assistant Widget Server</title>
-      <style>
-        body {
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-          max-width: 800px;
-          margin: 50px auto;
-          padding: 20px;
-          line-height: 1.6;
-          color: #333;
+  res.json({
+    service: 'FabCity Assistant API',
+    status: 'running',
+    version: '1.0.0',
+    endpoints: {
+      chat: 'POST /api/chat - Send a message to the AI assistant'
+    },
+    widget: {
+      url: 'https://fabcity-widget.onrender.com',
+      script: 'https://fabcity-widget.onrender.com/fabcity-widget.js',
+      css: 'https://fabcity-widget.onrender.com/fabcity-widget.css'
+    },
+    documentation: {
+      chat: {
+        method: 'POST',
+        endpoint: '/api/chat',
+        body: {
+          message: 'string (required) - User message',
+          sessionId: 'string (required) - Unique session identifier',
+          domain: 'string (required) - Domain where widget is embedded'
+        },
+        example: {
+          message: 'What is Fab City?',
+          sessionId: 'session_1234567890_abc123',
+          domain: 'example.com'
         }
-        h1 { color: #2c3e50; }
-        .status { 
-          display: inline-block;
-          background: #2ecc71; 
-          color: white; 
-          padding: 5px 10px; 
-          border-radius: 4px;
-          font-size: 14px;
-          margin-left: 10px;
-        }
-        pre {
-          background: #f4f4f4;
-          padding: 15px;
-          border-radius: 5px;
-          overflow-x: auto;
-          border-left: 4px solid #3498db;
-        }
-        code {
-          font-family: 'Courier New', monospace;
-          font-size: 14px;
-        }
-        .info {
-          background: #e8f4f8;
-          padding: 15px;
-          border-radius: 5px;
-          margin: 20px 0;
-        }
-      </style>
-    </head>
-    <body>
-      <h1>🤖 FabCity Assistant Widget <span class="status">● Online</span></h1>
-      
-      <div class="info">
-        <strong>Server Status:</strong> Running<br>
-        <strong>API Endpoint:</strong> /api/chat<br>
-        <strong>Widget Files:</strong> Available
-      </div>
+      }
+    }
+  });
+});
 
-      <h2>📦 Installation</h2>
-      <p>To embed the chat widget on your website, add this code to your HTML:</p>
-      <pre><code>&lt;script src="https://fabcity-assistant.onrender.com/widget.js"&gt;&lt;/script&gt;</code></pre>
-
-      <h2>🔧 Usage</h2>
-      <p>The widget will automatically appear on your page once the script is loaded. Make sure to:</p>
-      <ul>
-        <li>Place the script tag before the closing &lt;/body&gt; tag</li>
-        <li>Ensure your domain is properly configured</li>
-        <li>Check browser console for any errors</li>
-      </ul>
-
-      <h2>📚 API Endpoint</h2>
-      <p>POST requests to <code>/api/chat</code> with the following JSON body:</p>
-      <pre><code>{
-  "message": "Your message here",
-  "sessionId": "unique-session-id",
-  "domain": "yourdomain.com"
-}</code></pre>
-    </body>
-    </html>
-  `);
+// Health check endpoint (useful for monitoring)
+app.get('/health', (req, res) => {
+  res.status(200).json({ 
+    status: 'healthy',
+    timestamp: new Date().toISOString()
+  });
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port: ${PORT}`);
+  console.log(`🚀 API Server running on port: ${PORT}`);
   console.log(`📡 Proxying chat requests to: ${N8N_WEBHOOK_URL}`);
-  console.log(`📁 Serving static files from: ${path.join(__dirname, '../dist-embed')}`);
+  console.log(`🌐 Widget hosted at: https://fabcity-widget.onrender.com`);
 });
