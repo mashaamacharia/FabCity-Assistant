@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-const LoadingIndicator = () => {
+const LoadingIndicator = ({ logoUrl }) => {
   // Use Fab City brand colors
   const colors = ['#22c55e', '#3b82f6', '#22c55e'];
 
@@ -9,7 +9,7 @@ const LoadingIndicator = () => {
       {/* Fab City Logo - Small version while loading */}
       <div className="w-12 h-12 rounded-full overflow-hidden mb-4 shadow-md">
         <img 
-          src="/fab-city-logo.png"
+          src={logoUrl || '/fab-city-logo.png'}
           alt="Fab City Logo" 
           className="w-full h-full object-cover"
         />
