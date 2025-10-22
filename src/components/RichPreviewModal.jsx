@@ -402,35 +402,14 @@ const RichPreviewModal = ({ url, onClose }) => {
 
       case 'pdf':
         return (
-          <div className="flex-1 flex flex-col">
-            <iframe
-              ref={iframeRef}
-              src={embedUrl}
-              className="flex-1 w-full border-0"
-              title="PDF Preview"
-              onLoad={handleIframeLoad}
-              onError={handleIframeError}
-            />
-            <div className="flex gap-2">
-              <a
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white py-4 hover:from-blue-600 hover:to-purple-700 transition-all font-semibold"
-              >
-                <ExternalLink size={20} />
-                Open PDF in New Tab
-              </a>
-              <a
-                href={url.includes('drive.google.com') ? url.replace('/preview', '/view?usp=sharing').replace('export=download', 'export=view') : url}
-                download
-                className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-green-500 to-teal-600 text-white py-4 hover:from-green-600 hover:to-teal-700 transition-all font-semibold"
-              >
-                <Download size={20} />
-                Download PDF
-              </a>
-            </div>
-          </div>
+          <iframe
+            ref={iframeRef}
+            src={embedUrl}
+            className="flex-1 w-full border-0"
+            title="PDF Preview"
+            onLoad={handleIframeLoad}
+            onError={handleIframeError}
+          />
         );
 
       case 'youtube':
@@ -502,6 +481,17 @@ const RichPreviewModal = ({ url, onClose }) => {
                   title="Download file"
                 >
                   <Download size={18} />
+                </a>
+              )}
+              {embedFailed && fileType === 'web' && (
+                <a
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-white/80 p-2 rounded-lg hover:bg-white/20 transition-colors"
+                  title="Open in new tab"
+                >
+                  <ExternalLink size={18} />
                 </a>
               )}
               <button
