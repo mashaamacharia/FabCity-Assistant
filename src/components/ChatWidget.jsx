@@ -17,13 +17,13 @@ const ChatWidget = ({ config = {} }) => {
   // Get API URL from config or default to relative path
   const apiUrl = config.apiUrl || '';
   
-  // ✅ Logo is served from the SAME domain as the widget (static site)
-  // Use relative path - it will resolve to the static site URL automatically
-  const logoUrl = '/fab-city-logo.png';
+  // ✅ FIX: Use absolute URL for logo
+  // Remove trailing slash and construct full logo URL
+  const baseUrl = apiUrl.replace(/\/$/, '');
+  const logoUrl = baseUrl ? `${baseUrl}/fab-city-logo.png` : '/fab-city-logo.png';
   
   console.log('🖼️ Logo URL:', logoUrl);
   console.log('🔧 API URL from config:', apiUrl);
-  console.log('🌍 Widget loaded from:', window.location.origin);
   
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
