@@ -19,8 +19,8 @@ const ChatWidget = ({ config = {} }) => {
   
   // ✅ FIX: Use absolute URL for logo
   // Remove trailing slash and construct full logo URL
-  const baseUrl = apiUrl.replace(/\/$/, '');
-  const logoUrl = baseUrl ? `${baseUrl}/fab-city-logo.png` : '/fab-city-logo.png';
+const logoUrl = '/fab-city-logo.png';
+
   
   console.log('🖼️ Logo URL:', logoUrl);
   console.log('🔧 API URL from config:', apiUrl);
