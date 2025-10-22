@@ -19,10 +19,6 @@ const ChatWidget = ({ config = {} }) => {
   const logoUrl = 'https://fabcity-widget.onrender.com/fab-city-logo.png';
 
   
-  // ✅ FIX: Use absolute URL for logo
-  // Remove trailing slash and construct full logo URL
-
-  
   console.log('🖼️ Logo URL:', logoUrl);
   console.log('🔧 API URL from config:', apiUrl);
   
