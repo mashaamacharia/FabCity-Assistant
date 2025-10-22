@@ -16,7 +16,8 @@ const SUGGESTIONS = [
 const ChatWidget = ({ config = {} }) => {
   // Get API URL from config or default to relative path
   const apiUrl = config.apiUrl || '';
-  const logoUrl = '/fab-city-logo.png';
+  const logoUrl = 'https://fabcity-widget.onrender.com/fab-city-logo.png';
+
   
   // ✅ FIX: Use absolute URL for logo
   // Remove trailing slash and construct full logo URL
